@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http.response import HttpResponse
 
 from app.models import Category, Product
+from profiles.forms import CommentForm
 # Create your views here.
 
 
@@ -15,7 +16,11 @@ def main(request):
     return render(request, 'main.html', {'categories':categories, 'products':products})
 
 def detail(request, pk):
+    form = CommentForm()
     categories = Category.objects.all().order_by('name') #чтоб появились названия всех категорий на стр дитейл
     product = Product.objects.get(pk=pk)
-    return render(request, 'detail.html', {'categories':categories,'product':product})
+    return render(request, 'detail.html', {
+        'categories':categories,
+        'product':product,
+        'form':form})
 

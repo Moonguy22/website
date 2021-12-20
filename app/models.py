@@ -7,8 +7,8 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name ="Название")
     class Meta:
-        verbose_name = "Приложение"
-        verbose_name_plural ="Приложения"
+        verbose_name = "Категорие"
+        verbose_name_plural ="Категория"
 
     def __str__(self):
         return self.name

@@ -1,7 +1,7 @@
 from django.db import models
 
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
-
+from app.models import Product
 
 
 class MyUserManager(BaseUserManager):
@@ -34,3 +34,13 @@ class MyUserModel(AbstractBaseUser, PermissionsMixin):
     
     def save(self, *args, **kwargs):
         super(MyUserModel, self).save(*args, **kwargs)
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comment')
+    text = models.CharField(max_length=200)
+    title = models.CharField(max_length=20)
+    user = models.ForeignKey(MyUserModel, related_name='comments', on_delete=models.CASCADE)
+    
+    def __str__(self) -> str:
+        return self.title
+        

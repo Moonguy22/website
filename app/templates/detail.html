@@ -13,6 +13,26 @@
               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
           </div>
+    <div class="row">
+    {% for comment in product.comment.all %}
+    <div class="col-12">
+      <div class="card text-dark bg-light mb-3" style="max-width: 18rem; margin-left: 40%;">
+        <div class="card-header">{{comment.title}}</div>
+        <div class="card-body">
+          <h5 class="card-title">{{comment.user.username}}</h5>
+          <p class="card-text">{{comment.text}}</p>
+        </div>
+      </div>
     </div>
+    {% endfor %}
+  </div>
+
+    {% if request.user.is_authenticated %}
+      <form action="{% url 'profiles:add_comment' pk=product.pk %}"  style="margin-left:40%" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-primary">Создать</button>
+      </form>
+    {% endif %}
 </div>
 {% endblock %}
